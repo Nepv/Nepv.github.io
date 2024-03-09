@@ -20,7 +20,7 @@
   <meta name="keywords" content="" />
   <meta name="description" content="LBT" />
 	<!-- favicon -->
-  <link rel="shortcut icon" href="/img/favicon.ico">
+  <link rel="shortcut icon" href="/img/Nepv.svg">
 
   <!-- css -->
   
@@ -34,7 +34,7 @@
 
 <script>
     const CONFIG_BGIMAGE = {
-      mode: 'random_you',
+      mode: 'normal',
       normalSrc: '/img/site/bg.jpg',
       randomYouMax: 83,
       randomYouSrc: '/img/site',
@@ -104,7 +104,7 @@
 <nav class="nav-container" id="cd-nav">
 	<div class="nav-header">
 		<span class="logo"> 
-			<img src="/null">
+			<img src="/img/Nepv.png">
 		</span>
 		<a href="javascript:;" class="nav-close"></a>
 	</div>
@@ -155,50 +155,50 @@
 		<ul id="global-social">
 	
 		<li>
-			<a href="http://github.com/" target="_blank">
-				<span class="icon-one"><span class="path1"></span><span class="path2"></span></span>
+			<a href="/null" target="_blank">
+				
 			</a>
 		</li>
 	
 		<li>
-			<a href="http://github.com/" target="_blank">
-				<span class="icon-zhihu"></span>
+			<a href="/null" target="_blank">
+				
 			</a>
 		</li>
 	
 		<li>
-			<a href="http://github.com/" target="_blank">
-				<span class="icon-github"></span>
+			<a href="/null" target="_blank">
+				
 			</a>
 		</li>
 	
 		<li>
-			<a href="http://github.com/" target="_blank">
-				<span class="icon-sina-weibo "></span>
+			<a href="/null" target="_blank">
+				
 			</a>
 		</li>
 	
 		<li>
-			<a href="http://github.com/" target="_blank">
-				<span class="icon-pinterest2"></span>
+			<a href="/null" target="_blank">
+				
 			</a>
 		</li>
 	
 		<li>
-			<a href="http://github.com/" target="_blank">
-				<span class="icon-instagram"></span>
+			<a href="/null" target="_blank">
+				
 			</a>
 		</li>
 	
 		<li>
-			<a href="http://github.com/" target="_blank">
-				<span class="icon-twitter"></span>
+			<a href="/null" target="_blank">
+				
 			</a>
 		</li>
 	
 		<li>
-			<a href="/atom.xml" target="_blank">
-				<span class="icon-rss"></span>
+			<a href="/null" target="_blank">
+				
 			</a>
 		</li>
 			
@@ -321,25 +321,32 @@
 </footer>
 		
 	<!-- Local or hitokoto! -->
-
-	
-<script src="/plugin/motto/motto.js"></script>
-
-	
-	<script type="text/javascript">
+ 
+	<!-- 现代写法，推荐 -->
+	<!-- 兼容低版本浏览器 (包括 IE)，可移除 -->
+	<script src="https://cdn.jsdelivr.net/npm/bluebird@3/js/browser/bluebird.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@2.0.3/fetch.min.js"></script>
+	<!--End-->
+	<script>
 		(function motto(){
-			let mottoText = getMingYanContent().split('</br> - </br>'),
-			
-			mottoTextContent = mottoText[0]?mottoText[0]:'请刷新...',
-			
-			mottoTextFrom = mottoText[1]?mottoText[1]:'one/一个';
-			
-			mottoTextContent = mottoTextContent.trim().substring(0, 100);
-		
-			$("#motto-content").html( mottoTextContent);
-			$("#motto-author").html( mottoTextFrom  );
-		})();	
-	</script>	
+			fetch('https://v1.hitokoto.cn/?c=d')
+				.then(function (res){
+				return res.json();
+			}).then(function (data) {
+				$("#motto-content").html( data.hitokoto?data.hitokoto:'请刷新...' );
+				
+				let	mottoAuthor =' ';
+					mottoAuthor += data.creator?data.creator:'一言';
+					mottoAuthor += "　/　";
+					mottoAuthor += data.from?data.from:'一言官网';
+					
+				$("#motto-author").html( mottoAuthor );
+			})
+			.catch(function (err) {
+				console.error(err);
+			})			
+		})();
+	</script>
 
 
 
